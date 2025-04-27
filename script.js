@@ -15,7 +15,7 @@ document.getElementById('formulario-suscripcion').addEventListener('submit', asy
     }
 
     try {
-        const respuesta = await fetch('https://webdigitalizacion.netlify.app/confirmacion.html', {
+        const respuesta = await fetch('https://webdigitalizacion.netlify.app/suscribir', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
