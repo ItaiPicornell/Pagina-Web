@@ -1,4 +1,4 @@
-document.getElementById('formulario-suscripcion').addEventListener('submit', function(evento) {
+document.getElementById('formulario-suscripcion').addEventListener('submit', async function(evento) {
     evento.preventDefault();
 
     const nombre = document.getElementById('nombre').value.trim();
@@ -14,16 +14,35 @@ document.getElementById('formulario-suscripcion').addEventListener('submit', fun
         return;
     }
 
-    document.getElementById('mensaje-confirmacion').classList.remove('oculto');
+    try {
+        const respuesta = await fetch('https://webdigitalizacion.netlify.app/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombre, correo })
+        });
 
-    console.log('Formulario enviado:', {
-        nombre: nombre,
-        correo: correo
-    });
+        const data = await respuesta.json();
 
-    setTimeout(() => {
-        window.location.href = 'confirmacion.html';
-    }, 2000);
+        if (data.success) {
+            document.getElementById('mensaje-confirmacion').classList.remove('oculto');
+
+            console.log('Formulario enviado:', {
+                nombre: nombre,
+                correo: correo
+            });
+
+            setTimeout(() => {
+                window.location.href = 'confirmacion.html';
+            }, 2000);
+        } else {
+            alert('Hubo un error al suscribirse.');
+        }
+    } catch (error) {
+        console.error('Error al enviar los datos:', error);
+        alert('Error de conexión.');
+    }
 });
 
 function validarNombre(nombre) {
