@@ -35,5 +35,5 @@ app.post('/suscribir', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Servidor escuchando en https://webdigitalizacion.netlify.app/`);
+    console.log(`Servidor escuchando en https://webdigitalizacion.netlify.app/confirmacion.html`);
 });
